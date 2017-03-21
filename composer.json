@@ -1,0 +1,36 @@
+{
+    "name": "ruvents/doctrine-fixes-bundle",
+    "description": "RUVENTS Doctrine Fixes Bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Valentin Udaltsov",
+            "email": "udaltsov@ruvents.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "symfony/http-kernel": "^3.0",
+        "symfony/config": "^3.0",
+        "symfony/dependency-injection": "^3.0",
+        "symfony/yaml": "^3.0",
+        "doctrine/dbal": "^2.5"
+    },
+    "require-dev": {
+        "matthiasnoback/symfony-dependency-injection-test": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ruvents\\DoctrineFixesBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
