@@ -1,8 +1,0 @@
-services:
-  ruvents_doctrine_fixes.event_listener.schema_namespace_fix:
-    class: Ruvents\DoctrineFixesBundle\EventListener\SchemaNamespaceFixListener
-    public: false
-    arguments:
-      - ~
-    tags:
-      - { name: doctrine.event_listener, event: postGenerateSchema }

@@ -15,12 +15,16 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ruvents_doctrine_fixes');
 
+        /** @noinspection PhpUndefinedMethodInspection */
         $rootNode
-            ->children()
-                ->arrayNode('schema_namespace_fix')
-                    ->canBeEnabled()
-                    ->children()
-                        ->scalarNode('namespace')->defaultNull()->end()
+            ->useAttributeAsKey('connection')
+            ->prototype('array')
+                ->children()
+                    ->arrayNode('schema_namespace_fix')
+                        ->canBeEnabled()
+                        ->children()
+                            ->scalarNode('namespace')->defaultNull()->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

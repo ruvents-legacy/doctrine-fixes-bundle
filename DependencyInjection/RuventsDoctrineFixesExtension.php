@@ -2,9 +2,9 @@
 
 namespace Ruvents\DoctrineFixesBundle\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
+use Ruvents\DoctrineFixesBundle\EventListener\SchemaNamespaceFixListener;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class RuventsDoctrineFixesExtension extends ConfigurableExtension
@@ -14,13 +14,19 @@ class RuventsDoctrineFixesExtension extends ConfigurableExtension
      */
     public function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-
-        if ($mergedConfig['schema_namespace_fix']['enabled']) {
-            $loader->load('schema_namespace_fix.yml');
-            $container
-                ->findDefinition('ruvents_doctrine_fixes.event_listener.schema_namespace_fix')
-                ->replaceArgument(0, $mergedConfig['schema_namespace_fix']['namespace']);
+        foreach ($mergedConfig as $connection => $config) {
+            if ($config['schema_namespace_fix']['enabled']) {
+                $name = sprintf('ruvents_doctrine_fixes.%s.schema_namespace_fix_listener', $connection);
+                $definition = (new Definition())
+                    ->setClass(SchemaNamespaceFixListener::class)
+                    ->setPublic(false)
+                    ->addArgument($config['schema_namespace_fix']['namespace'])
+                    ->addTag('doctrine.event_listener', [
+                        'event' => 'postGenerateSchema',
+                        'connection' => $connection,
+                    ]);
+                $container->setDefinition($name, $definition);
+            }
         }
     }
 }

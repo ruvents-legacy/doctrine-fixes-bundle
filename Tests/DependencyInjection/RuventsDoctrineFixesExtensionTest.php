@@ -7,35 +7,40 @@ use Ruvents\DoctrineFixesBundle\DependencyInjection\RuventsDoctrineFixesExtensio
 
 class RuventsDoctrineFixesExtensionTest extends AbstractExtensionTestCase
 {
-    public function testEmpty()
-    {
-        $this->load();
-        $this->assertContainerBuilderNotHasService('ruvents_doctrine_fixes.event_listener.schema_namespace_fix');
-    }
-
     public function testSchemaNamespaceFix()
     {
         $this->load([
-            'schema_namespace_fix' => null,
-        ]);
-        $this->assertContainerBuilderHasServiceDefinitionWithTag(
-            'ruvents_doctrine_fixes.event_listener.schema_namespace_fix',
-            'doctrine.event_listener',
-            ['event' => 'postGenerateSchema']
-        );
-    }
-
-    public function testSchemaNamespaceFixNamespace()
-    {
-        $this->load([
-            'schema_namespace_fix' => [
-                'namespace' => 'public',
+            'default' => [
+                'schema_namespace_fix' => null,
+            ],
+            'test' => [
+                'schema_namespace_fix' => [
+                    'namespace' => 'public',
+                ],
             ],
         ]);
+
+        $this->assertContainerBuilderHasServiceDefinitionWithTag(
+            'ruvents_doctrine_fixes.default.schema_namespace_fix_listener',
+            'doctrine.event_listener',
+            [
+                'event' => 'postGenerateSchema',
+                'connection' => 'default',
+            ]
+        );
+
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'ruvents_doctrine_fixes.event_listener.schema_namespace_fix',
+            'ruvents_doctrine_fixes.test.schema_namespace_fix_listener',
             0,
             'public'
+        );
+        $this->assertContainerBuilderHasServiceDefinitionWithTag(
+            'ruvents_doctrine_fixes.test.schema_namespace_fix_listener',
+            'doctrine.event_listener',
+            [
+                'event' => 'postGenerateSchema',
+                'connection' => 'test',
+            ]
         );
     }
 
