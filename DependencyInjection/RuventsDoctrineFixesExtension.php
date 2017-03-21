@@ -18,6 +18,9 @@ class RuventsDoctrineFixesExtension extends ConfigurableExtension
 
         if ($mergedConfig['schema_namespace_fix']['enabled']) {
             $loader->load('schema_namespace_fix.yml');
+            $container
+                ->findDefinition('ruvents_doctrine_fixes.event_listener.schema_namespace_fix')
+                ->replaceArgument(0, $mergedConfig['schema_namespace_fix']['namespace']);
         }
     }
 }

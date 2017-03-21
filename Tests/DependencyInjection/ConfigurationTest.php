@@ -16,17 +16,30 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     public function testSchemaNamespaceFix()
     {
-        $this->assertConfigurationIsValid([
-            'ruvents_doctrine_fixes' => [
-                'schema_namespace_fix' => null,
+        $this->assertProcessedConfigurationEquals(
+            [
             ],
-        ]);
+            [
+                'schema_namespace_fix' => [
+                    'enabled' => false,
+                    'namespace' => null,
+                ],
+            ]
+        );
 
-        $this->assertConfigurationIsValid([
-            'ruvents_doctrine_fixes' => [
-                'schema_namespace_fix' => true,
+        $this->assertProcessedConfigurationEquals(
+            [
+                'ruvents_doctrine_fixes' => [
+                    'schema_namespace_fix' => null,
+                ],
             ],
-        ]);
+            [
+                'schema_namespace_fix' => [
+                    'enabled' => true,
+                    'namespace' => null,
+                ],
+            ]
+        );
     }
 
     protected function getConfiguration()

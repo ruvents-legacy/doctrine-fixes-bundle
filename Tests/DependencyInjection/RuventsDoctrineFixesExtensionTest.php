@@ -25,6 +25,20 @@ class RuventsDoctrineFixesExtensionTest extends AbstractExtensionTestCase
         );
     }
 
+    public function testSchemaNamespaceFixNamespace()
+    {
+        $this->load([
+            'schema_namespace_fix' => [
+                'namespace' => 'public',
+            ],
+        ]);
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'ruvents_doctrine_fixes.event_listener.schema_namespace_fix',
+            0,
+            'public'
+        );
+    }
+
     protected function getContainerExtensions()
     {
         return [

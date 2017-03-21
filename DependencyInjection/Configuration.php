@@ -17,7 +17,12 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('schema_namespace_fix')->canBeEnabled()->end()
+                ->arrayNode('schema_namespace_fix')
+                    ->canBeEnabled()
+                    ->children()
+                        ->scalarNode('namespace')->defaultNull()->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
