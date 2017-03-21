@@ -4,8 +4,12 @@
 
 ```yaml
 ruvents_doctrine_fixes:
-    # all fixes are disabled by default but can be enabled
-    schema_namespace_fix: ~
+    # connection name
+    default:
+        # all fixes are disabled by default but can be enabled
+        schema_namespace_fix: ~
+    another_connection:
+        # ...
 ```
 
 ## Fixes
@@ -13,9 +17,8 @@ ruvents_doctrine_fixes:
 ### Schema namespace fix ([doctrine/dbal#1110](https://github.com/doctrine/dbal/issues/1110))
 
 ```yaml
-ruvents_doctrine_fixes:
-    schema_namespace_fix:
-        # null by default
-        # if null, $platform->getDefaultSchemaName() is used
-        namespace: 'public'
+        # ...
+        schema_namespace_fix:
+            # namespace is null by default and $platform->getDefaultSchemaName() is used in this case
+            namespace: 'public'
 ```
