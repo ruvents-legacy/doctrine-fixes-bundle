@@ -1,6 +1,6 @@
-# RUVENTS Doctrine Fixes Bundle]
+# RUVENTS Doctrine Fixes Bundle
 
-# Configuration
+## Configuration
 
 ```yaml
 ruvents_doctrine_fixes:
@@ -8,7 +8,7 @@ ruvents_doctrine_fixes:
     schema_namespace_fix: ~
 ```
 
-#Fixes
+## Fixes
 
 ### Schema namespace fix ([doctrine/dbal#1110](https://github.com/doctrine/dbal/issues/1110))
 
