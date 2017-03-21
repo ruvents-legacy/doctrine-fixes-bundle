@@ -27,11 +27,14 @@
 ## Configuration
 
 ```yaml
+# app/Resources/config.yml
+
 ruvents_doctrine_fixes:
     # connection name
     default:
-        # all fixes are disabled by default but can be enabled
+        # all fixes are disabled by default and can be enabled with null
         schema_namespace_fix: ~
+    
     another_connection:
         # ...
 ```
@@ -43,6 +46,7 @@ ruvents_doctrine_fixes:
 ```yaml
         # ...
         schema_namespace_fix:
-            # namespace is null by default and $platform->getDefaultSchemaName() is used in this case
+            # namespace is null by default
+            # $platform->getDefaultSchemaName() is used in this case
             namespace: 'public'
 ```
