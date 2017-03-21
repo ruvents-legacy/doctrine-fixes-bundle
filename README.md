@@ -1,5 +1,29 @@
 # RUVENTS Doctrine Fixes Bundle
 
+## Installation
+
+1. Install the package via composer:
+   ```console
+   $ composer require ruvents/doctrine-fixes-bundle:~0.1.0
+   ```
+
+1. Register the bundle:
+    ```php
+    <?php
+    // app/AppKernel.php
+    
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = [
+                // ...
+                new Ruvents\DoctrineFixesBundle\RuventsDoctrineFixesBundle(),
+            ];
+        }
+    }
+    ```
+
 ## Configuration
 
 ```yaml
