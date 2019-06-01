@@ -12,11 +12,11 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ruvents_doctrine_fixes');
+        $treeBuilder = new TreeBuilder('ruvents_doctrine_fixes');
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->useAttributeAsKey('connection')
             ->prototype('array')
                 ->children()
